@@ -1,0 +1,152 @@
+@import "clash-grotesk.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 213, 52%, 9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 158 64% 52%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 214.2 98.47% 74.31%;
+    --secondary-foreground: 218 11% 65%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --radius: 0.5rem;
+
+    --nav-active-color: var(--primary);
+    --nav-active-text-color: var(--foreground);
+    --nav-link-color: var(--muted-foreground);
+  }
+
+  .light {
+    --background: 211, 60%, 93%;
+    --foreground: 210, 10%, 20%;
+
+    --card: 0, 0%, 100%;
+    --card-foreground: 210, 10%, 20%;
+
+    --popover: 0, 0%, 100%;
+    --popover-foreground: 210, 10%, 20%;
+
+    --primary: 158 64% 52%;
+    --primary-foreground: 0, 0%, 0%;
+
+    --secondary: 214.2 98.47% 74.31%;
+    --secondary-foreground: 0, 0%, 100%;
+
+    --muted: 207, 53%, 86%;
+    --muted-foreground: 210, 10%, 20%;
+
+    --accent: 204, 100%, 97%;
+    --accent-foreground: 0, 0%, 20%;
+
+    --destructive: 0, 100%, 68%;
+    --destructive-foreground: 0, 0%, 100%;
+
+    --border: 207, 53%, 86%;
+    --input: 207, 53%, 86%;
+    --ring: 207, 45%, 85%;
+
+    --radius: 0.5rem;
+
+    --nav-active-color: var(--primary);
+    --nav-active-text-color: var(--foreground);
+    --nav-link-color: var(--muted-foreground);
+  }
+}
+
+/* global elements */
+@layer base {
+  html[data-scroll-orientation="horizontal"] {
+    body {
+      @apply w-fit;
+    }
+    [data-scroll-container] {
+      @apply flex;
+    }
+  }
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply antialiased;
+  }
+  body {
+    @apply cursor-wait bg-background text-foreground;
+  }
+  section {
+    scroll-margin-top: 60px;
+  }
+}
+
+/* custom scrollbar */
+@layer base {
+  ::-webkit-scrollbar {
+    @apply h-2.5 w-2 transition;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    @apply bg-primary;
+  }
+}
+
+/* custom styles */
+@layer base {
+  .clash-grotesk {
+    font-family: "ClashGrotesk-Variable", sans-serif;
+  }
+  .text-gradient {
+    @apply bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  .nav-active {
+    color: var(--nav-active-color) !important;
+    @apply text-sm lowercase tracking-tight;
+    color: var(--nav-active-text-color);
+  }
+
+  .nav-link {
+    @apply text-sm lowercase tracking-tight;
+    color: var(--nav-link-color);
+  }
+  /* blinking animation */
+  @keyframes blink {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  .animate-blink {
+    animation: blink 1s infinite;
+  }
+}
