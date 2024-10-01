@@ -21,7 +21,7 @@ const MemoriesSection: React.FC = () => {
       alt: "Photo 3",
       description: "At CVPR 2024",
     },
-    { src: "/memories/group.jpg", alt: "Photo 3", description: "HoCV Group" },
+    { src: "/memories/group.webp", alt: "Photo 3", description: "HoCV Group" },
     {
       src: "/memories/optica.webp",
       alt: "Photo 4",
