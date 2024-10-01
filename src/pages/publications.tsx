@@ -215,7 +215,7 @@ const PublicationsPage: React.FC = () => {
         <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)} 
-            className="inline-flex transform items-center justify-center rounded-md p-2 transition-all duration-300 focus:outline-none"
+            className="inline-flex transform items-center justify-center rounded-md p-2 transition-all duration-300 focus:outline-none mr-6"
           >
             {isOpen ? <CrossIcon data-hide={!isOpen} /> : <MenuIcon data-hide={isOpen} />}
           </button>
