@@ -64,11 +64,13 @@ const IntroSection: React.FC<IntroSectionProps> = ({ isScrolled }) => {
         className="m-8 flex flex-col items-center justify-center space-y-4 text-center md:m-44 md:space-y-5"
       >
         <Image
-          src="/assets/profesor.webp"
+          src="/assets/Hoover-Fabian-Rueda-qcmd5z3diu9g3z5z7l4vdghthi2dq1r7qlwpkvt8e0.png"
           alt="Professor's Photo"
-          width={128} // Reduce el tamaño en móviles
-          height={128}
-          className="rounded-full md:h-48 md:w-48"
+          width={200} // Reduce el tamaño en móviles
+          height={200}
+          className="rounded-full h-32 w-32 md:h-48 md:w-48"
+          layout="intrinsic"
+
         />
         <motion.h1
           className="text-3xl font-bold text-foreground md:text-5xl"
