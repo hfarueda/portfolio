@@ -57,14 +57,14 @@ const staggerContainer = {
 const IntroSection: React.FC<IntroSectionProps> = ({ isScrolled }) => {
   return (
     <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
-      <Gradient />
+     <Gradient />
       <section
         id="home"
         data-scroll-section
-        className="m-8 flex flex-col items-center justify-center space-y-4 text-center md:m-44 md:space-y-5"
+        className="m-8 flex mt-14 flex-col items-center justify-center space-y-4 text-center md:m-44 md:space-y-5"
       >
         <Image
-          src="/assets/Hoover-Fabian-Rueda-qcmd5z3diu9g3z5z7l4vdghthi2dq1r7qlwpkvt8e0.png"
+          src="/assets/Hoover-Fabian-Rueda.png"
           alt="Professor's Photo"
           width={200} // Reduce el tamaño en móviles
           height={200}
@@ -246,7 +246,7 @@ function Gradient() {
   return (
     <>
       {/* Upper gradient */}
-      <div className="absolute -top-40 right-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+      <div className="absolute -top-40 right-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80 pointer-events-none">
         <svg
           className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"
@@ -273,7 +273,7 @@ function Gradient() {
       </div>
 
       {/* Lower gradient */}
-      <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+      <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)] pointer-events-none">
         <svg
           className="relative left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2 sm:left-[calc(50%+36rem)] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"

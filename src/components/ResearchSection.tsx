@@ -48,10 +48,6 @@ const research: Research[] = [
   },
 ];
 
-function NewGradient() {
-  return <>{/* Left gradient - New Distribution */}</>;
-}
-
 const ResearchSection: React.FC = () => {
   return (
     <section id="research" data-scroll-section className="my-24">

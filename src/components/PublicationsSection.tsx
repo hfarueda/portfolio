@@ -22,7 +22,7 @@ const PublicationCard: React.FC<{ publication: Publication }> = ({
   );
 
   return (
-    <div className="group relative flex w-full flex-col rounded-lg bg-gray-100 p-4 duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary dark:bg-gray-800 sm:w-96">
+    <div className="group relative flex w-full flex-col rounded-lg bg-white p-4 duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary dark:bg-gray-800 sm:w-96">
       <div
         className="absolute -bottom-6 -right-4 h-24 w-36 rounded-lg bg-gray-200 shadow-md duration-700 group-hover:-translate-x-2 group-hover:-translate-y-1 dark:bg-gray-700 md:-bottom-12 md:-right-24 md:h-1/2 md:w-1/2 md:group-hover:-translate-x-4 md:group-hover:-translate-y-2"
         style={{
@@ -75,7 +75,7 @@ function Gradient() {
   return (
     <>
       {/* Left gradient */}
-      <div className="absolute left-0 top-1/2 z-0 -translate-y-1/2 transform-gpu overflow-hidden blur-3xl sm:left-0">
+      <div className="absolute inset-0 left-0 top-1/2 z-0 -translate-y-1/2 transform-gpu overflow-hidden blur-3xl sm:left-0 pointer-events-none">
         <svg
           className="relative h-[21.1875rem] max-w-none -translate-x-[40%] rotate-[60deg] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"
@@ -102,7 +102,7 @@ function Gradient() {
       </div>
 
       {/* Right gradient */}
-      <div className="absolute right-0 top-1/2 z-0 -translate-y-1/2 transform-gpu overflow-hidden blur-3xl sm:right-0">
+      <div className="absolute right-0 top-1/2 z-0 -translate-y-1/2 transform-gpu overflow-hidden blur-3xl sm:right-0 pointer-events-none">
         <svg
           className="relative h-[21.1875rem] max-w-none translate-x-[40%] rotate-[-60deg] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"
@@ -136,6 +136,7 @@ const PublicationsSection: React.FC = () => {
   return (
     <section id="publications" className="relative my-44" data-scroll-section>
       <Gradient />
+       
       <div
         data-scroll
         data-scroll-speed=".1"

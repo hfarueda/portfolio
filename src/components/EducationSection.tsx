@@ -124,7 +124,6 @@ const EducationSection: React.FC = () => {
           {educationTimeline.map((item, index) => (
             <EducationTimelineItem key={index} item={item} index={index} />
           ))}
-          <div className="absolute top-1/2 z-0 w-full -translate-y-1/2 transform border-t-2 border-gray-400 dark:border-gray-200"></div>
         </ol>
       </div>
     </section>
@@ -135,11 +134,11 @@ function Gradient() {
   return (
     <>
       {/* Upper gradient */}
-      <div className="absolute right-0 top-0 z-0 transform-gpu overflow-hidden blur-3xl sm:right-0 sm:top-0">
+      <div className="absolute inset-0 right-0 top-0 z-0 transform-gpu overflow-hidden blur-3xl sm:right-0 sm:top-0 pointer-events-none">
         <svg
           className="relative h-[21.1875rem] max-w-none -translate-y-[30%] translate-x-[30%] rotate-[30deg] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"
-        >
+        > 
           <path
             fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)"
             fillOpacity=".2"
@@ -162,9 +161,9 @@ function Gradient() {
       </div>
 
       {/* Lower gradient */}
-      <div className="absolute bottom-0 left-0 z-0 transform-gpu overflow-hidden blur-3xl sm:bottom-0 sm:left-0">
+      <div className="absolute bottom-0 left-0 z-0 transform-gpu overflow-hidden blur-3xl sm:bottom-0 sm:left-0 pointer-events-none">
         <svg
-          className="relative h-[21.1875rem] max-w-none -translate-x-[30%] translate-y-[30%] sm:h-[42.375rem]"
+          className="absolute top-[-30%] right-[-30%] h-[21.1875rem] max-w-none -translate-x-[30%] translate-y-[30%] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"
         >
           <path

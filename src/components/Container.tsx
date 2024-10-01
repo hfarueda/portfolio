@@ -53,7 +53,10 @@ const navLinks = [
   { href: "/blog", text: "Blog" },
 ];
 
-function handleClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) {
+function handleClick(
+  e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  href: string,
+) {
   if (href.startsWith("#")) {
     e.preventDefault();
     const section = document.querySelector(href);
@@ -76,7 +79,11 @@ function NavItem(props: NavProps) {
       exit="hidden"
     >
       {href.startsWith("#") ? (
-        <a href={href} onClick={(e) => handleClick(e, href)} className={cn(i === 0 && "nav-active", "nav-link")}>
+        <a
+          href={href}
+          onClick={(e) => handleClick(e, href)}
+          className={cn(i === 0 && "nav-active", "nav-link")}
+        >
           {text}
         </a>
       ) : (
@@ -170,7 +177,6 @@ export default function Container(props: ContainerProps) {
             aria-controls="mobile-menu"
             aria-expanded="false"
           >
-            <span className="sr-only">Open main menu</span>
             <MenuIcon data-hide={isOpen} />
             <CrossIcon data-hide={!isOpen} />
           </button>
@@ -211,7 +217,6 @@ export default function Container(props: ContainerProps) {
                   aria-controls="mobile-menu"
                   aria-expanded="false"
                 >
-                  <span className="sr-only">Open main menu</span>
                   <CrossIcon data-hide={!isOpen} />
                 </button>
               </div>
@@ -233,7 +238,8 @@ export default function Container(props: ContainerProps) {
 
                 <div className="flex min-h-fit w-full flex-col space-y-8 px-[22px] py-10">
                   <span className="text-sm text-muted-foreground">
-                    © {new Date().getFullYear()} Hoover F. Rueda-Chacón. All rights reserved.
+                    © {new Date().getFullYear()} Hoover F. Rueda-Chacón. All
+                    rights reserved.
                   </span>
                 </div>
               </div>
@@ -252,7 +258,7 @@ function MenuIcon(props: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="absolute h-5 w-5 text-neutral-100"
+      className="absolute h-5 w-5 text-neutral-900 dark:text-neutral-100 "
       width="20"
       height="20"
       viewBox="0 0 20 20"
@@ -287,7 +293,7 @@ function MenuIcon(props: IconProps) {
 function CrossIcon(props: IconProps) {
   return (
     <svg
-      className="absolute h-5 w-5 text-neutral-100"
+      className="absolute h-5 w-5 text-neutral-900 dark:text-neutral-100"
       viewBox="0 0 24 24"
       width="24"
       height="24"

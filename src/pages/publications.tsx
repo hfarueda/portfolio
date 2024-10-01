@@ -126,7 +126,7 @@ const PublicationCard: React.FC<{ publication: Publication }> = ({
   );
 
   return (
-    <div className="group relative flex w-full max-w-6xl flex-col items-center rounded-lg bg-gray-100 p-6 transition duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary dark:bg-gray-800 md:flex-row">
+    <div className="group relative flex w-full md:max-w-6xl flex-col items-center rounded-lg bg-white p-6 transition duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary dark:bg-gray-800 md:flex-row">
       {/* Imagen grande a la izquierda en pantallas grandes, centrada en pantallas pequeñas */}
       <div
         className="h-48 w-48 flex-shrink-0 rounded-lg bg-gray-200 shadow-md dark:bg-gray-700 md:h-64 md:w-64"
@@ -214,7 +214,6 @@ const PublicationsPage: React.FC = () => {
       >
         <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
           <button className="inline-flex transform items-center justify-center rounded-md p-2 transition-all duration-300 focus:outline-none">
-            <span className="sr-only">Open main menu</span>
           </button>
         </div>
         <Link href="/" className="text-lg font-semibold">
@@ -246,7 +245,7 @@ const PublicationsPage: React.FC = () => {
           </h2>
 
           {/* Grid de publicaciones */}
-          <div className="mt-10 grid grid-cols-1 gap-6">
+          <div className="mt-10 grid grid-cols-1 gap-6 mx-10 md:mx-auto ">
             {publicationsData.map((publication, index) => (
               <PublicationCard key={index} publication={publication} />
             ))}

@@ -4,7 +4,7 @@ import { Post } from '@/components/data/blogData'; // Asegúrate de que la ruta 
 
 // Valores por defecto
 const DEFAULT_AUTHOR_NAME = "Hoover F. Rueda-Chacón";
-const DEFAULT_AUTHOR_PHOTO = "/assets/profesor.webp";
+const DEFAULT_AUTHOR_PHOTO = "/assets/Hoover-Fabian-Rueda.png";
 
 // Función para aplicar valores por defecto
 export const applyDefaultAuthor = (posts: Omit<Post, 'authorName' | 'authorPhoto'>[]): Post[] => {

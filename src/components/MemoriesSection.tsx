@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Camera } from 'lucide-react';
-
+import { Camera } from "lucide-react";
 
 const MemoriesSection: React.FC = () => {
   const images = [
@@ -83,15 +82,15 @@ const MemoriesSection: React.FC = () => {
         data-scroll
         data-scroll-speed=".1"
         data-scroll-position="top"
-        className="relative mx-auto my-16 sm:my-24 md:my-44 flex max-w-full flex-col items-center justify-center space-y-6 px-4 md:max-w-6xl"
+        className="relative mx-auto my-16 flex max-w-full flex-col items-center justify-center space-y-6 px-4 sm:my-24 md:my-44 md:max-w-6xl"
       >
         <Gradient />
-        <Camera className="md:size-10" color="#00e298"/>
-        <h2 className="relative z-10 mt-3 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight xl:text-5xl">
+         
+        <Camera className="md:size-10" color="#00e298" />
+        <h2 className="relative z-10 mt-3 text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl xl:text-5xl">
           Some Memories
         </h2>
-
-        <div className="relative z-0 h-[300px] sm:h-[400px] md:h-[600px] lg:h-[700px] w-full overflow-hidden rounded-lg border-2 border-gray-600 shadow-2xl shadow-emerald-400 dark:border-gray-200">
+        <div className="relative z-0 h-[300px] w-full overflow-hidden rounded-lg border-2 border-gray-600 shadow-2xl shadow-emerald-400 dark:border-gray-200 sm:h-[400px] md:h-[600px] lg:h-[700px]">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={currentIndex}
@@ -111,15 +110,15 @@ const MemoriesSection: React.FC = () => {
                     className="rounded-lg object-cover"
                   />
                   <motion.div
-                    className="absolute bottom-0 left-0 right-0 p-2 sm:p-4 text-center"
+                    className="absolute bottom-0 left-0 right-0 p-2 text-center sm:p-4"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 30 }}
                     transition={{ duration: 0.8 }}
                   >
-                    <div className="relative rounded-lg p-2 sm:p-4 shadow-lg">
+                    <div className="relative rounded-lg p-2 shadow-lg sm:p-4">
                       <div className="absolute inset-0 rounded-lg bg-gray-800 opacity-80"></div>
-                      <p className="relative text-xs sm:text-xl font-semibold text-white drop-shadow-md">
+                      <p className="relative text-xs font-semibold text-white drop-shadow-md sm:text-xl">
                         {images[currentIndex]?.description ?? ""}
                       </p>
                     </div>
@@ -143,7 +142,6 @@ const MemoriesSection: React.FC = () => {
             {">"}
           </button>
         </div>
-
         {/* Indicadores de imagen */}
         <div className="mt-4 flex space-x-2">
           {images.map((_, index) => (

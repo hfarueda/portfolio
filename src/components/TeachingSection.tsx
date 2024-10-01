@@ -1,6 +1,5 @@
 import React from "react";
-import { School } from 'lucide-react';
-
+import { School } from "lucide-react";
 
 interface Subject {
   subjectName: string;
@@ -70,14 +69,15 @@ const TeachingCard: React.FC<{ subject: Subject }> = ({ subject }) => (
 const TeachingSection: React.FC = () => {
   return (
     <section id="teaching" className="relative my-44" data-scroll-section>
-      <Gradient />
+    <Gradient />
+       
       <div
         data-scroll
         data-scroll-speed=".1"
         data-scroll-position="top"
         className="relative z-10 mx-auto my-14 flex max-w-6xl flex-col items-center justify-center space-y-6"
       >
-       <School className="md:size-10" color="#00e298"/>
+        <School className="md:size-10" color="#00e298" />
         <h2 className="mt-3 text-center text-4xl font-semibold tracking-tight xl:text-5xl">
           Teaching{" "}
         </h2>
@@ -95,7 +95,7 @@ function Gradient() {
   return (
     <>
       {/* Upper gradient */}
-      <div className="absolute left-0 top-0 z-0 transform-gpu overflow-hidden blur-2xl sm:left-10 sm:top-10">
+      <div className="absolute left-0 top-0 z-0 transform-gpu overflow-hidden blur-2xl sm:left-10 sm:top-10 pointer-events-none">
         <svg
           className="relative h-[18rem] max-w-none -translate-y-[20%] translate-x-[20%] rotate-[45deg] scale-[1.2] sm:h-[36rem]"
           viewBox="0 0 1155 678"
@@ -122,7 +122,7 @@ function Gradient() {
       </div>
 
       {/* Lower gradient */}
-      <div className="absolute bottom-0 right-0 z-0 transform-gpu overflow-hidden blur-2xl sm:bottom-10 sm:right-10">
+      <div className="absolute bottom-0 right-0 z-0 transform-gpu overflow-hidden blur-2xl sm:bottom-10 sm:right-10 pointer-events-none">
         <svg
           className="relative h-[18rem] max-w-none -translate-y-[20%] translate-x-[20%] rotate-[-45deg] scale-[1.2] sm:h-[36rem]"
           viewBox="0 0 1155 678"

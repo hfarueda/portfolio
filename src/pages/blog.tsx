@@ -196,10 +196,10 @@ const Blog: React.FC = () => {
           posts.map((post) => (
             <div
               key={post.id}
-              className="mt-8 flex flex-col gap-2 rounded-md bg-white p-5 shadow-md duration-150 hover:scale-105 hover:duration-150 dark:bg-gray-800 dark:text-white"
+              className="mt-8 mx-10 md:mx-auto flex flex-col gap-2 rounded-md bg-white p-5 shadow-md duration-150 hover:scale-105 hover:duration-150 dark:bg-gray-800 dark:text-white"
             >
               {/* Header: Author's Photo and Name */}
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between ">
                 <div className="flex items-center">
                   <img
                     src={post.authorPhoto} // URL de la foto del autor
