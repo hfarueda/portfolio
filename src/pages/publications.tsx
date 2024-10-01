@@ -3,7 +3,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { publicationsData } from "@/components/data/publicationsData";
 import { useRouter } from "next/router";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import Footer from "@/components/Footer";
 import ThemeToggleButton from "@/components/ui/ThemeToggleButton";
 import styles from "@/styles/Container.module.css";
@@ -11,6 +11,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 import { cn } from "@/lib/utils";
 import { Files } from 'lucide-react';
+
+type IconProps = {
+  ["data-hide"]: boolean;
+};
 
 interface Publication {
   title: string;
@@ -42,7 +46,6 @@ function handleClick(
     const [path, hash] = href.split("#");
 
     if (path && path === router.pathname) {
-      // Si ya estamos en la misma ruta, hacemos scroll directo
       const section = document.querySelector(`#${hash}`);
       if (section) {
         const top = section.getBoundingClientRect().top + window.scrollY;
@@ -52,24 +55,25 @@ function handleClick(
         });
       }
     } else if (path) {
-      // Si estamos en una ruta diferente, redirigimos y esperamos a que la nueva página cargue
-      router.push(path).then(() => {
-        if (hash) {
-          setTimeout(() => {
-            const section = document.querySelector(`#${hash}`);
-            if (section) {
-              const top = section.getBoundingClientRect().top + window.scrollY;
-              window.scrollTo({
-                top,
-                behavior: 'smooth',
-              });
-            }
-          }, 300);
-        }
-      }).catch((error) => {
-        console.error("Error during navigation", error);
-      });
-      
+      router
+        .push(path)
+        .then(() => {
+          if (hash) {
+            setTimeout(() => {
+              const section = document.querySelector(`#${hash}`);
+              if (section) {
+                const top = section.getBoundingClientRect().top + window.scrollY;
+                window.scrollTo({
+                  top,
+                  behavior: "smooth",
+                });
+              }
+            }, 300);
+          }
+        })
+        .catch((error) => {
+          console.error("Error during navigation", error);
+        });
     }
   }
 }
@@ -80,7 +84,6 @@ type NavProps = {
   i: number;
   className?: string;
 };
-
 
 // Variantes de animación para framer-motion
 const variants = {
@@ -95,7 +98,7 @@ const variants = {
 
 // Componente NavItem para manejar los enlaces de navegación
 function NavItem(props: NavProps) {
-  const router = useRouter(); // Usamos useRouter para navegar entre páginas
+  const router = useRouter();
 
   return (
     <motion.li
@@ -108,7 +111,7 @@ function NavItem(props: NavProps) {
     >
       <a
         href={props.href}
-        onClick={(e) => handleClick(e, router)} // Llamamos a handleClick con el router
+        onClick={(e) => handleClick(e, router)}
         className={cn(props.i === 0 && "nav-active", "nav-link")}
       >
         {props.text}
@@ -122,12 +125,11 @@ const PublicationCard: React.FC<{ publication: Publication }> = ({
   publication,
 }) => {
   const filteredLinks = publication.links.filter(
-    (link) => link.type !== "Project Page",
+    (link) => link.type !== "Project Page"
   );
 
   return (
     <div className="group relative flex w-full md:max-w-6xl flex-col items-center rounded-lg bg-white p-6 transition duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary dark:bg-gray-800 md:flex-row">
-      {/* Imagen grande a la izquierda en pantallas grandes, centrada en pantallas pequeñas */}
       <div
         className="h-48 w-48 flex-shrink-0 rounded-lg bg-gray-200 shadow-md dark:bg-gray-700 md:h-64 md:w-64"
         style={{
@@ -137,7 +139,6 @@ const PublicationCard: React.FC<{ publication: Publication }> = ({
         }}
       ></div>
 
-      {/* Contenido a la derecha en pantallas grandes, abajo en pantallas pequeñas */}
       <div className="mt-6 flex w-full flex-col justify-between md:ml-8 md:mt-0">
         <div>
           <h2 className="mb-2 text-lg font-bold text-gray-800 dark:text-gray-200">
@@ -179,13 +180,12 @@ const PublicationCard: React.FC<{ publication: Publication }> = ({
   );
 };
 
-
-
 // Componente principal de la página de publicaciones
 const PublicationsPage: React.FC = () => {
   const router = useRouter(); // useRouter dentro del componente
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const controls = useAnimation();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -209,11 +209,15 @@ const PublicationsPage: React.FC = () => {
           styles.nav,
           isScrolled
             ? "bg-gradient-to-br from-background to-transparent shadow-md backdrop-blur transition"
-            : "bg-transparent",
+            : "bg-transparent"
         )}
       >
         <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
-          <button className="inline-flex transform items-center justify-center rounded-md p-2 transition-all duration-300 focus:outline-none">
+          <button
+            onClick={() => setIsOpen(!isOpen)} 
+            className="inline-flex transform items-center justify-center rounded-md p-2 transition-all duration-300 focus:outline-none"
+          >
+            {isOpen ? <CrossIcon data-hide={!isOpen} /> : <MenuIcon data-hide={isOpen} />}
           </button>
         </div>
         <Link href="/" className="text-lg font-semibold">
@@ -233,6 +237,53 @@ const PublicationsPage: React.FC = () => {
           ))}
           <ThemeToggleButton />
         </ul>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              className="fixed right-0 top-0 z-40 flex h-screen w-full flex-col justify-start overflow-y-hidden bg-background"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 1, type: "spring", bounce: 0.25 }}
+            >
+              <div className="flex h-20 max-h-20 min-h-[60px] w-full items-center justify-between border-b pl-[22px] pr-1">
+                <span className="text-base font-medium lowercase">Menu</span>
+                <button
+                  onClick={() => setIsOpen(!isOpen)}
+                  className={styles.burger}
+                  aria-controls="mobile-menu"
+                  aria-expanded="false"
+                >
+                  <CrossIcon data-hide={!isOpen} />
+                </button>
+              </div>
+              <div className="flex h-full flex-col items-start justify-between overflow-y-auto">
+                <ul className="flex min-h-fit w-full flex-col items-start space-y-6 px-[22px] py-[58px]">
+                  {navLinks.map((link, i) => (
+                    <button key={link.href} onClick={() => setIsOpen(false)}>
+                      <NavItem
+                        key={link.href}
+                        href={link.href}
+                        text={link.text}
+                        i={i}
+                        className="text-xl"
+                      />
+                    </button>
+                  ))}
+                  <ThemeToggleButton />
+                </ul>
+
+                <div className="flex min-h-fit w-full flex-col space-y-8 px-[22px] py-10">
+                  <span className="text-sm text-muted-foreground">
+                    © {new Date().getFullYear()} Hoover F. Rueda-Chacón. All rights reserved.
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Main content */}
@@ -266,3 +317,60 @@ const PublicationsPage: React.FC = () => {
 };
 
 export default PublicationsPage;
+
+function MenuIcon(props: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="absolute h-5 w-5 text-neutral-900 dark:text-neutral-100"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      {...props}
+    >
+      <path
+        d="M2.5 2.5H17.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M2.5 7.5H17.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M2.5 12.5H17.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function CrossIcon(props: IconProps) {
+  return (
+    <svg
+      className="absolute h-5 w-5 text-neutral-900 dark:text-neutral-100"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+      shapeRendering="geometricPrecision"
+      {...props}
+    >
+      <path d="M18 6L6 18" />
+      <path d="M6 6l12 12" />
+    </svg>
+  );
+}
