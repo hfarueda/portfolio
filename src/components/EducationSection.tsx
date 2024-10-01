@@ -161,7 +161,7 @@ function Gradient() {
       </div>
 
       {/* Lower gradient */}
-      <div className="absolute bottom-0 left-0 z-0 transform-gpu overflow-hidden blur-3xl sm:bottom-0 sm:left-0 pointer-events-none">
+      <div className="absolute inset-0 bottom-0 left-0 z-0 transform-gpu overflow-hidden blur-3xl sm:bottom-0 sm:left-0 pointer-events-none">
         <svg
           className="absolute top-[-30%] right-[-30%] h-[21.1875rem] max-w-none -translate-x-[30%] translate-y-[30%] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"

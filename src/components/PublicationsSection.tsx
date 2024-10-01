@@ -102,7 +102,7 @@ function Gradient() {
       </div>
 
       {/* Right gradient */}
-      <div className="absolute right-0 top-1/2 z-0 -translate-y-1/2 transform-gpu overflow-hidden blur-3xl sm:right-0 pointer-events-none">
+      <div className="absolute inset-0 right-0 top-1/2 z-0 -translate-y-1/2 transform-gpu overflow-hidden blur-3xl sm:right-0 pointer-events-none">
         <svg
           className="relative h-[21.1875rem] max-w-none translate-x-[40%] rotate-[-60deg] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"

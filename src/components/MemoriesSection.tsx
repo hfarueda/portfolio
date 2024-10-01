@@ -84,7 +84,7 @@ const MemoriesSection: React.FC = () => {
         data-scroll-position="top"
         className="relative mx-auto my-16 flex max-w-full flex-col items-center justify-center space-y-6 px-4 sm:my-24 md:my-44 md:max-w-6xl"
       >
-        <Gradient />
+        <Gradient /> 
          
         <Camera className="md:size-10" color="#00e298" />
         <h2 className="relative z-10 mt-3 text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl xl:text-5xl">
@@ -162,7 +162,7 @@ function Gradient() {
   return (
     <>
       {/* Upper gradient */}
-      <div className="absolute right-0 top-0 z-0 transform-gpu overflow-hidden blur-3xl sm:right-0 sm:top-0">
+      <div className="absolute inset-0 right-0 top-0 z-0 transform-gpu overflow-hidden blur-3xl sm:right-0 sm:top-0 pointer-events-none">
         <svg
           className="relative h-[15rem] max-w-none -translate-y-[30%] translate-x-[30%] rotate-[30deg] sm:h-[30rem]"
           viewBox="0 0 1155 678"
@@ -189,7 +189,7 @@ function Gradient() {
       </div>
 
       {/* Lower gradient */}
-      <div className="absolute bottom-0 left-0 z-0 transform-gpu overflow-hidden blur-3xl sm:bottom-0 sm:left-0">
+      <div className="absolute inset-0 bottom-0 left-0 z-0 transform-gpu overflow-hidden blur-3xl sm:bottom-0 sm:left-0 pointer-events-none">
         <svg
           className="relative h-[15rem] max-w-none -translate-x-[30%] translate-y-[30%] sm:h-[30rem]"
           viewBox="0 0 1155 678"

@@ -69,7 +69,7 @@ const TeachingCard: React.FC<{ subject: Subject }> = ({ subject }) => (
 const TeachingSection: React.FC = () => {
   return (
     <section id="teaching" className="relative my-44" data-scroll-section>
-    <Gradient />
+    <Gradient /> 
        
       <div
         data-scroll
@@ -95,10 +95,11 @@ function Gradient() {
   return (
     <>
       {/* Upper gradient */}
-      <div className="absolute left-0 top-0 z-0 transform-gpu overflow-hidden blur-2xl sm:left-10 sm:top-10 pointer-events-none">
+      <div className="absolute inset-0 left-0 top-0 z-0 transform-gpu overflow-hidden blur-2xl pointer-events-none sm:left-10 sm:top-10 pointer-events-none">
         <svg
           className="relative h-[18rem] max-w-none -translate-y-[20%] translate-x-[20%] rotate-[45deg] scale-[1.2] sm:h-[36rem]"
           viewBox="0 0 1155 678"
+          preserveAspectRatio="none"
         >
           <path
             fill="url(#newGradientUpper)"
@@ -122,10 +123,11 @@ function Gradient() {
       </div>
 
       {/* Lower gradient */}
-      <div className="absolute bottom-0 right-0 z-0 transform-gpu overflow-hidden blur-2xl sm:bottom-10 sm:right-10 pointer-events-none">
+      <div className="absolute inset-0 bottom-0 right-0 z-0 transform-gpu overflow-hidden blur-2xl pointer-events-none sm:bottom-10 sm:right-10 pointer-events-none">
         <svg
           className="relative h-[18rem] max-w-none -translate-y-[20%] translate-x-[20%] rotate-[-45deg] scale-[1.2] sm:h-[36rem]"
           viewBox="0 0 1155 678"
+          preserveAspectRatio="none"
         >
           <path
             fill="url(#newGradientLower)"
