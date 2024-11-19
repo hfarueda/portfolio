@@ -1,6 +1,7 @@
 // src/data/publicationsData.ts
 
 export const publicationsData = [
+  
     {
       title: "Beyond Appearances: Material Segmentation with Embedded Spectral Information from RGB-D imagery",
       authors: "Fabian Perez, Hoover Rueda-Chacon",

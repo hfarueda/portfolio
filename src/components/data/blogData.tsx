@@ -14,6 +14,12 @@ export interface Post {
 // Lista de publicaciones
 export const rawBlogPosts: Omit<Post, "authorName" | "authorPhoto">[] = [
   {
+    id: 4,
+    description:
+      "How colors change as you go deeper underwater, because water selectively scatters and absorbs certain wavelengths of visible light [📹 Kendall Roberg]",
+    date: "2024-09-19", // Fecha actual asignada automáticamente
+  },
+  {
     id: 1,
     description:
       "Hola, mi nombre es Hoover, docente de la Universidad Industrial de Santander",
@@ -37,6 +43,7 @@ export const rawBlogPosts: Omit<Post, "authorName" | "authorPhoto">[] = [
     mediaType: "video",
     date: "2024-09-19", // Fecha actual asignada automáticamente
   },
+  
   
   
 ];

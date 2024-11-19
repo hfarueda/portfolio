@@ -13,7 +13,7 @@ const MemoriesSection: React.FC = () => {
     {
       src: "/memories/bill_freeman.webp",
       alt: "Photo 2",
-      description: "Meeting Bill Freeman",
+      description: "Meeting William Freeman",
     },
     {
       src: "/memories/cvpr2024.webp",
