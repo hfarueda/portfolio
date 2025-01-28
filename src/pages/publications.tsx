@@ -10,7 +10,7 @@ import styles from "@/styles/Container.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 import { cn } from "@/lib/utils";
-import { Files } from 'lucide-react';
+import { Files } from "lucide-react";
 
 type IconProps = {
   ["data-hide"]: boolean;
@@ -37,7 +37,7 @@ const navLinks = [
 // Manejo del scroll al hacer clic en un enlace
 function handleClick(
   e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-  router: ReturnType<typeof useRouter>
+  router: ReturnType<typeof useRouter>,
 ) {
   e.preventDefault();
   const href = e.currentTarget.getAttribute("href");
@@ -62,7 +62,8 @@ function handleClick(
             setTimeout(() => {
               const section = document.querySelector(`#${hash}`);
               if (section) {
-                const top = section.getBoundingClientRect().top + window.scrollY;
+                const top =
+                  section.getBoundingClientRect().top + window.scrollY;
                 window.scrollTo({
                   top,
                   behavior: "smooth",
@@ -125,11 +126,11 @@ const PublicationCard: React.FC<{ publication: Publication }> = ({
   publication,
 }) => {
   const filteredLinks = publication.links.filter(
-    (link) => link.type !== "Project Page"
+    (link) => link.type !== "Project Page",
   );
 
   return (
-    <div className="group relative flex w-full md:max-w-6xl flex-col items-center rounded-lg bg-white p-6 transition duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary dark:bg-gray-800 md:flex-row">
+    <div className="group relative flex w-full flex-col items-center rounded-lg bg-white p-6 transition duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary dark:bg-gray-800 md:max-w-6xl md:flex-row">
       <div
         className="h-48 w-48 flex-shrink-0 rounded-lg bg-gray-200 shadow-md dark:bg-gray-700 md:h-64 md:w-64"
         style={{
@@ -182,7 +183,7 @@ const PublicationCard: React.FC<{ publication: Publication }> = ({
 
 // Componente principal de la página de publicaciones
 const PublicationsPage: React.FC = () => {
-  const router = useRouter(); // useRouter dentro del componente
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const controls = useAnimation();
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -209,15 +210,19 @@ const PublicationsPage: React.FC = () => {
           styles.nav,
           isScrolled
             ? "bg-gradient-to-br from-background to-transparent shadow-md backdrop-blur transition"
-            : "bg-transparent"
+            : "bg-transparent",
         )}
       >
         <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
           <button
-            onClick={() => setIsOpen(!isOpen)} 
-            className="inline-flex transform items-center justify-center rounded-md p-2 transition-all duration-300 focus:outline-none mr-6"
+            onClick={() => setIsOpen(!isOpen)}
+            className="mr-6 inline-flex transform items-center justify-center rounded-md p-2 transition-all duration-300 focus:outline-none"
           >
-            {isOpen ? <CrossIcon data-hide={!isOpen} /> : <MenuIcon data-hide={isOpen} />}
+            {isOpen ? (
+              <CrossIcon data-hide={!isOpen} />
+            ) : (
+              <MenuIcon data-hide={isOpen} />
+            )}
           </button>
         </div>
         <Link href="/" className="text-lg font-semibold">
@@ -277,7 +282,8 @@ const PublicationsPage: React.FC = () => {
 
                 <div className="flex min-h-fit w-full flex-col space-y-8 px-[22px] py-10">
                   <span className="text-sm text-muted-foreground">
-                    © {new Date().getFullYear()} Hoover F. Rueda-Chacón. All rights reserved.
+                    © {new Date().getFullYear()} Hoover F. Rueda-Chacón. All
+                    rights reserved.
                   </span>
                 </div>
               </div>
@@ -296,10 +302,17 @@ const PublicationsPage: React.FC = () => {
           </h2>
 
           {/* Grid de publicaciones */}
-          <div className="mt-10 grid grid-cols-1 gap-6 mx-10 md:mx-auto ">
+          <div className="mx-10 mt-10 grid grid-cols-1 gap-6 md:mx-auto ">
             {publicationsData.map((publication, index) => (
               <PublicationCard key={index} publication={publication} />
             ))}
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-center bg-gradient-to-r p-2">
+          <div className="w-full max-w-md rounded-lg bg-slate-700 p-6 text-center shadow-lg sm:p-8 dark:bg-gray-100">
+            <h1 className="text-2xl font-bold text-gray-50 sm:text-3xl dark:text-gray-900">
+              🚧 Under Construction 🚧
+            </h1>
           </div>
         </div>
 

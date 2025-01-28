@@ -24,7 +24,7 @@ const PublicationCard: React.FC<{ publication: Publication }> = ({
   return (
     <div className="group relative flex w-full flex-col rounded-lg bg-white p-4 duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary dark:bg-gray-800 sm:w-96">
       <div
-        className="absolute -bottom-6 -right-4 h-24 w-36 rounded-lg bg-gray-200 shadow-md duration-700 group-hover:-translate-x-2 group-hover:-translate-y-1 dark:bg-gray-700 md:-bottom-12 md:-right-24 md:h-1/2 md:w-1/2 md:group-hover:-translate-x-4 md:group-hover:-translate-y-2"
+        className="absolute -bottom-4 -right-4 rounded-lg bg-gray-200 shadow-md duration-700 group-hover:-translate-x-2 group-hover:-translate-y-1 dark:bg-gray-700 md:-bottom-4 md:-right-2 md:h-24 md:w-32 md:group-hover:-translate-x-4 md:group-hover:-translate-y-2 sm:block hidden"
         style={{
           backgroundImage: `url(${publication.image})`,
           backgroundSize: "cover",
