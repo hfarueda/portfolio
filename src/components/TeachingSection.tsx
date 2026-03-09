@@ -28,7 +28,7 @@ const subjects: Subject[] = [
     subjectImage: "/subjects/dip.webp",
     subjectDescription:
       "Digital Image Processing explores techniques for enhancing, analyzing, and manipulating digital images. Topics include image transformations, filtering, segmentation, and morphological operations, with applications in object detection, image recognition, and computer vision. Emphasis is placed on both theoretical understanding and practical implementation.",
-    subjectDate: "Spring 2024",
+    subjectDate: "2024-Present",
   },
 ];
 
