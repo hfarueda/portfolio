@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router"; // Importamos useRouter para manejar la navegación
 import Head from "next/head";
 import peopleData from "@/components/data/peopleData";
+import formerData from "@/components/data/formerStudents";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import Footer from "@/components/Footer";
 import ThemeToggleButton from "@/components/ui/ThemeToggleButton";
@@ -131,6 +132,7 @@ const People: React.FC = () => {
       PhD: 1,
       MSc: 2,
       Undergraduate: 3,
+      formerStudents: 4,
     };
 
     return peopleData.sort((a, b) => {
@@ -140,6 +142,22 @@ const People: React.FC = () => {
       return aGrade - bGrade;
     });
   }, [peopleData]);
+
+  const sortedFormerData = useMemo(() => {
+    const gradeOrder: Record<string, number> = {
+      PhD: 1,
+      MSc: 2,
+      Undergraduate: 3,
+      formerStudents: 4,
+    };
+
+    return formerData.sort((a, b) => {
+      const aGrade = gradeOrder[a.grade] ?? 4;
+      const bGrade = gradeOrder[b.grade] ?? 4;
+
+      return aGrade - bGrade;
+    });
+  }, [formerData]);
 
   return (
     <>
@@ -236,12 +254,44 @@ const People: React.FC = () => {
         <div className="relative z-10 my-14 flex flex-col items-center justify-center">
           <UsersRound className="md:size-10" color="#00e298" />
           <h2 className="mt-3 text-center text-4xl font-semibold tracking-tight xl:text-5xl">
-            People I have worked with
+            People I am working with
           </h2>
 
           {/* People Profiles */}
           <div className="m-10 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {sortedPeopleData.map((person, index) => (
+              <Link key={index} href={person.link} target="_blank" passHref>
+                <div className="group relative flex max-w-lg flex-col items-center overflow-hidden rounded-xl bg-gray-50 p-8 text-center shadow-lg shadow-gray-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500 dark:bg-gray-800 dark:shadow-gray-500 dark:hover:shadow-emerald-500">
+                  {/* Avatar */}
+                  <div className="text-gray-500 transition-all dark:text-gray-50">
+                    <img
+                      src={person.logo}
+                      alt={person.name}
+                      className="mb-4 h-36 w-36 rounded-full object-cover"
+                    />
+                  </div>
+
+                  {/* Name and Grade */}
+                  <div className="transition-all duration-500">
+                    <h1 className="text-xl font-semibold text-gray-700 dark:text-gray-50">
+                      {person.name}
+                    </h1>
+                    <p className="text-base text-gray-600 dark:text-gray-400">
+                      {person.grade}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          
+          <UsersRound className="md:size-10" color="#00e298" />
+          <h2 className="mt-3 text-center text-4xl font-semibold tracking-tight xl:text-5xl">
+            Former Students
+          </h2>
+          {/* People Profiles */}
+          <div className="m-10 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {sortedFormerData.map((person, index) => (
               <Link key={index} href={person.link} target="_blank" passHref>
                 <div className="group relative flex max-w-lg flex-col items-center overflow-hidden rounded-xl bg-gray-50 p-8 text-center shadow-lg shadow-gray-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500 dark:bg-gray-800 dark:shadow-gray-500 dark:hover:shadow-emerald-500">
                   {/* Avatar */}
