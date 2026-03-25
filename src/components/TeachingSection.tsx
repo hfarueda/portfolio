@@ -1,11 +1,13 @@
 import React from "react";
-import { School } from "lucide-react";
+import { Link, School } from "lucide-react";
+
 
 interface Subject {
   subjectName: string;
   subjectImage: string;
   subjectDescription: string;
   subjectDate: string;
+  subjectPage: string;
 }
 
 const subjects: Subject[] = [
@@ -15,6 +17,7 @@ const subjects: Subject[] = [
     subjectDescription:
       "focuses on the design, implementation, and efficiency of data structures such as lists, stacks, queues, hash tables, and trees. It covers key algorithms for searching, sorting, and traversal, along with the analysis of their performance using Big O notation to evaluate time and space complexity.",
     subjectDate: "2022-Present",
+    subjectPage: "/data-structures",
   },
   {
     subjectName: "Statistics",
@@ -22,6 +25,7 @@ const subjects: Subject[] = [
     subjectDescription:
       "introduces fundamental statistical concepts, covering descriptive statistics, probability theory, sampling methods, and hypothesis testing. Emphasis is placed on applying statistical methods to real-world data and making data-driven decisions, with a focus on interpreting results and understanding uncertainty.",
     subjectDate: "2022-Present",
+    subjectPage: "/statistics",
   },
   {
     subjectName: "Digital Image Processing",
@@ -29,6 +33,7 @@ const subjects: Subject[] = [
     subjectDescription:
       "Digital Image Processing explores techniques for enhancing, analyzing, and manipulating digital images. Topics include image transformations, filtering, segmentation, and morphological operations, with applications in object detection, image recognition, and computer vision. Emphasis is placed on both theoretical understanding and practical implementation.",
     subjectDate: "2024-Present",
+    subjectPage: "/dip",
   },
 ];
 
@@ -60,6 +65,12 @@ const TeachingCard: React.FC<{ subject: Subject }> = ({ subject }) => (
           <p className="mt-2 text-justify text-sm text-gray-800 lg:text-base">
             {subject.subjectDescription}
           </p>
+          <a className="mt-40" href={subject.subjectPage}>
+          <button className="group relative mt-4 inline-flex items-center justify-center gap-2 mx-auto overflow-hidden rounded-md border border-b-4 border-green-900 bg-green-200 px-5 py-2.5 text-base font-medium text-green-900 outline-none duration-300 hover:border-b hover:border-t-4 hover:brightness-120 active:opacity-75 dark:border-green-400 dark:bg-green-950 dark:text-green-400 dark:hover:brightness-150">
+            <span className="absolute -top-[150%] left-0 inline-flex h-[5px] w-80 rounded-md bg-green-900 opacity-50 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] shadow-green-900 duration-500 group-hover:top-[150%] dark:bg-green-400 dark:shadow-green-400"></span>
+            View More
+          </button>
+          </a>
         </div>
       </div>
     </div>
