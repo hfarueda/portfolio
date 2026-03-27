@@ -3,5 +3,7 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/dip": "pages/dip.js"
+  "/data-structures": "pages/data-structures.js",
+  "/dip": "pages/dip.js",
+  "/statistics": "pages/statistics.js"
 }
