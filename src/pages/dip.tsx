@@ -336,6 +336,40 @@ const DIP: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedTerm, setSelectedTerm] = useState<TermKey>("2024-1");
 
+  // Fullscreen carousel modal state
+  const [modalState, setModalState] = useState<{
+    open: boolean;
+    carouselIndex: number;
+    startIndex: number;
+  }>({
+    open: false,
+    carouselIndex: 0,
+    startIndex: 0,
+  });
+
+  // Modal controls
+  const [modalApi, setModalApi] = useState<any>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(false);
+
+  // Zoom state for modal image
+  const [zoom, setZoom] = useState(1);
+
+  const clampZoom = (value: number) => Math.min(4, Math.max(1, value));
+
+  const openFullscreen = (carouselIndex: number, startIndex: number) => {
+    setZoom(1);
+    setModalState({ open: true, carouselIndex, startIndex });
+  };
+
+  const closeFullscreen = () => {
+    setModalState((prev) => ({ ...prev, open: false }));
+    setZoom(1);
+  };
+
+  const goModalPrev = () => modalApi?.scrollPrev();
+  const goModalNext = () => modalApi?.scrollNext();
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -347,6 +381,54 @@ const DIP: React.FC = () => {
   }, []);
 
   const activeTerm = termContent[selectedTerm];
+  const modalCarousel = activeTerm.carousels[modalState.carouselIndex];
+
+  useEffect(() => {
+  if (!modalState.open) return;
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") closeFullscreen();
+    if (e.key === "ArrowLeft") goModalPrev();
+    if (e.key === "ArrowRight") goModalNext();
+  };
+
+  window.addEventListener("keydown", onKeyDown);
+  return () => window.removeEventListener("keydown", onKeyDown);
+  }, [modalState.open, modalApi]);
+
+  // Enable/disable Prev/Next buttons
+  useEffect(() => {
+    if (!modalApi) return;
+
+    const update = () => {
+      setCanPrev(modalApi.canScrollPrev());
+      setCanNext(modalApi.canScrollNext());
+    };
+
+    update();
+    modalApi.on("select", update);
+    modalApi.on("reInit", update);
+
+    return () => {
+      modalApi.off("select", update);
+      modalApi.off("reInit", update);
+    };
+  }, [modalApi]);
+
+  useEffect(() => {
+    if (!modalState.open) return;
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, [modalState.open]);
 
   return (
     <>
@@ -444,7 +526,7 @@ const DIP: React.FC = () => {
           <h2 className="mt-3 mb-5 text-center text-4xl font-semibold tracking-tight xl:text-5xl ">
             Digital Image Processing
           </h2>
-            <div className="mt-1 flex flex-row items-center justify-center gap-12 font-medium text-gray-300 drop-shadow-md max-w-7xl">
+            <div className="mt-1 flex flex-row items-center justify-center gap-12 font-medium text-gray-700 dark:text-gray-300 drop-shadow-md max-w-7xl">
             <p className="text-lg flex-1">Digital Image Processing explores techniques for enhancing, analyzing, and manipulating digital images. Topics include image transformations, filtering, segmentation, and morphological operations, with applications in object detection, image recognition, and computer vision. Emphasis is placed on both theoretical understanding and practical implementation.</p>
             <img src="/subjects/dip2.webp" alt="dip" className="rounded-lg shadow-lg flex-1 max-w-2xl h-full object-cover" />
             </div>
@@ -531,24 +613,34 @@ const DIP: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 gap-10 xl:grid-cols-2 xl:gap-14">
-                  {activeTerm.carousels.map((carousel) => (
+                  {activeTerm.carousels.map((carousel, carouselIndex) => (
                     <div key={carousel.title} className="mx-auto w-full max-w-[460px] space-y-3">
                       <h5 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                         {carousel.title}
                       </h5>
                       <Carousel
                         opts={{ align: "start", loop: true }}
-                        className="w-full"
-                      >
+                        className="w-full">
                         <CarouselContent>
-                          {carousel.slides.map((slide) => (
+                          {carousel.slides.map((slide, slideIndex) => (
                             <CarouselItem key={slide.title}>
                               <div className="overflow-hidden rounded-2xl border border-white/20 bg-white/70 shadow-lg dark:border-white/10 dark:bg-black/40">
-                                <img
-                                  src={slide.image}
-                                  alt={slide.title}
-                                  className="h-48 w-full object-contain"
-                                />
+                                <button
+                                  type="button"
+                                  onClick={() => openFullscreen(carouselIndex, slideIndex)}
+                                  className="block w-full"
+                                  aria-label={`Open ${slide.title} in fullscreen`}
+                                >
+                                  <img
+                                    src={slide.image}
+                                    alt={slide.title}
+                                    width={900}
+                                    height={500}
+                                    className="h-48 w-full cursor-zoom-in object-contain"
+                                    loading="lazy"
+                                    sizes="(max-width: 768px) 100vw, 460px"
+                                  />
+                                </button>
                                 <div className="space-y-1 p-3">
                                   <h6 className="text-sm font-semibold text-gray-900 dark:text-gray-100 md:text-base">
                                     {slide.title}
@@ -557,8 +649,8 @@ const DIP: React.FC = () => {
                                     {slide.description}
                                   </p>
                                 </div>
-                              </div>
-                            </CarouselItem>
+                                </div>
+                              </CarouselItem>
                           ))}
                         </CarouselContent>
                         <CarouselPrevious className="hidden md:flex" />
@@ -571,13 +663,103 @@ const DIP: React.FC = () => {
             </motion.div>
           </AnimatePresence>
 
+          <AnimatePresence>
+            {modalState.open && modalCarousel && (
+              <motion.div
+                className="fixed inset-x-0 bottom-0 top-20 z-[120] bg-black/90 backdrop-blur-sm"
+                role="dialog"
+                aria-modal="true"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={closeFullscreen}
+              >
+                <div
+                  className="relative flex h-full w-full flex-col"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="absolute left-4 top-4 z-10 rounded bg-black/30 px-3 py-1 text-sm font-medium text-white md:left-6 md:top-6">
+                    {modalCarousel.title}
+                  </div>
+
+                  <div className="flex-1 px-2 pb-20 pt-12 md:px-10 md:pb-24 md:pt-14">
+                    <Carousel
+                      opts={{ align: "center", loop: true, startIndex: modalState.startIndex }}
+                      setApi={setModalApi}
+                      className="h-full w-full"
+                    >
+                      <CarouselContent className="h-full">
+                        {modalCarousel.slides.map((slide) => (
+                          <CarouselItem key={`modal-${slide.title}`} className="h-full">
+                            <div className="flex h-full flex-col items-center justify-center">
+                              <div className="flex h-[70vh] w-full items-center justify-center overflow-auto">
+                                <img
+                                  src={slide.image}
+                                  alt={slide.title}
+                                  className="max-h-full max-w-full object-contain transition-transform duration-200"
+                                  style={{ transform: `scale(${zoom})`, transformOrigin: "center center" }}
+                                  onDoubleClick={() => setZoom((z) => (z > 1 ? 1 : 2))}
+                                  onWheel={(e) => {
+                                    e.preventDefault();
+                                    setZoom((z) => clampZoom(z - e.deltaY * 0.0015));
+                                  }}
+                                />
+                              </div>
+                              <div className="mt-4 text-center text-white">
+                                <h5 className="text-base font-semibold md:text-lg">{slide.title}</h5>
+                                <p className="text-sm text-white/80">{slide.description}</p>
+                              </div>
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious className="left-2 bg-white/20 text-white hover:bg-white/30 md:left-6" />
+                      <CarouselNext className="right-2 bg-white/20 text-white hover:bg-white/30 md:right-6" />
+                    </Carousel>
+                  </div>
+
+                  <div className="absolute bottom-4 right-4 z-10 flex items-center gap-2 md:bottom-6 md:right-6">
+                    <button
+                      type="button"
+                      onClick={goModalPrev}
+                      disabled={!canPrev}
+                      className="rounded bg-white/10 px-3 py-2 text-white hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      Prev
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goModalNext}
+                      disabled={!canNext}
+                      className="rounded bg-white/10 px-3 py-2 text-white hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      Next
+                    </button>
+                    <button
+                      type="button"
+                      onClick={closeFullscreen}
+                      aria-label="Close modal"
+                      className="rounded bg-white/10 px-3 py-2 text-xl leading-none text-white hover:bg-white/20"
+                    >
+                      ×
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+
+
         </div>
-        <Link href="/">
-          <button className="hover:brightness-120 group fixed bottom-8 left-6 z-10 overflow-hidden rounded-md border border-b-4 border-green-900 bg-green-200 px-8 py-4 text-lg font-medium text-green-900 outline-none duration-300 hover:border-b hover:border-t-4 active:opacity-75 dark:border-green-400 dark:bg-green-950 dark:text-green-400 dark:hover:brightness-150">
-            <span className="absolute -top-[150%] left-0 inline-flex h-[5px] w-80 rounded-md bg-green-400 opacity-50 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] shadow-green-400 duration-500 group-hover:top-[150%]"></span>
-            ↩ Go Back
-          </button>
-        </Link>
+        {!modalState.open && (
+          <Link href="/">
+            <button className="hover:brightness-120 group fixed bottom-8 left-6 z-10 overflow-hidden rounded-md border border-b-4 border-green-900 bg-green-200 px-8 py-4 text-lg font-medium text-green-900 outline-none duration-300 hover:border-b hover:border-t-4 active:opacity-75 dark:border-green-400 dark:bg-green-950 dark:text-green-400 dark:hover:brightness-150">
+              <span className="absolute -top-[150%] left-0 inline-flex h-[5px] w-80 rounded-md bg-green-400 opacity-50 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] shadow-green-400 duration-500 group-hover:top-[150%]"></span>
+              ↩ Go Back
+            </button>
+          </Link>
+        )}
 
 
       </section>
