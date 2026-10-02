@@ -66,36 +66,10 @@ type TermContent = {
   ];
 };
 
-const termOptions = ["2024-1", "2025-1", "2026-1"] as const;
+const termOptions = ["2025-1", "2026-1", "2026-2"] as const;
 type TermKey = (typeof termOptions)[number];
 
 const termContent: Record<TermKey, TermContent> = {
-  "2024-1": {
-    label: "2024-1",
-    subtitle: "",
-    carousels: [
-      {
-        title: "Class Projects",
-        slides: [
-          {
-            image: "/assets/under_construction.webp",
-            title: "Under Construction",
-            description: "TBD",
-          }
-        ],
-      },
-      {
-        title: "Challenges and Quizzes",
-        slides: [
-          {
-            image: "/assets/under_construction.webp",
-            title: "Under Construction",
-            description: "TBD",
-          }
-        ],
-      },
-    ],
-  },
   "2025-1": {
     label: "2025-1",
     subtitle: "",
@@ -259,6 +233,52 @@ const termContent: Record<TermKey, TermContent> = {
       },
     ],
   },
+  "2026-2": {
+    label: "2026-2",
+    subtitle: "",
+    carousels: [
+      {
+        title: "Class Projects",
+        slides: [
+          {
+            image: "/assets/coming_soon.png",
+            title: "Coming Soon!",
+            description: "TBD",
+          },
+        ],
+      },
+      {
+        title: "Challenges and Quizzes",
+        slides: [
+          {
+            image: "/subjects/pinhole contest 2026-2/Concursante1.webp",
+            title: "Pinhole Contestant #1",
+            description: "Vote for your favorite!",
+          },
+          {
+            image: "/subjects/pinhole contest 2026-2/Concursante2.webp",
+            title: "Pinhole Contestant #2",
+            description: "Vote for your favorite!",
+          },
+          {
+            image: "/subjects/pinhole contest 2026-2/Concursante3.webp",
+            title: "Pinhole Contestant #3",
+            description: "Vote for your favorite!",
+          },
+          {
+            image: "/subjects/pinhole contest 2026-2/Concursante4.webp",
+            title: "Pinhole Contestant #4",
+            description: "Vote for your favorite!",
+          },
+          {
+            image: "/subjects/pinhole contest 2026-2/Concursante5.webp",
+            title: "Pinhole Contestant #5",
+            description: "Vote for your favorite!",
+          },
+        ],
+      },
+    ],
+  },
 };
 
 function handleClick(
@@ -334,7 +354,7 @@ function NavItem(props: NavProps) {
 const DIP: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedTerm, setSelectedTerm] = useState<TermKey>("2024-1");
+  const [selectedTerm, setSelectedTerm] = useState<TermKey>("2025-1");
 
   // Fullscreen carousel modal state
   const [modalState, setModalState] = useState<{
@@ -562,7 +582,14 @@ const DIP: React.FC = () => {
                 Chapter 3: Image Transformation and Filtering
               </h3>
               <ul className="mt-2 list-disc space-y-1 pl-6 text-gray-600 dark:text-gray-400">
-                <li>WIP</li>
+                <li>Basic Concepts</li>
+                <li>Affine/Geometric Transformation</li>
+                <li>Pixel-Level Transformations</li>
+                <li>Neighborhood Transformations</li>
+                <li>Fourier Transform and Convolution</li>
+                <li>Filtering in the Spatial and Spectral Domains</li>
+                <li>Image Restoration (Deconvolution)</li>
+                <li>Noise Analysis and Removal</li>
               </ul>
             </div>
           </div>
